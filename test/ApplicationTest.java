@@ -35,9 +35,18 @@ public class ApplicationTest {
     
     @Test
     public void renderTemplate() {
-        Content html = views.html.index.render("Your new application is ready.");
+        Content html = views.html.index.render("Hello, world!");
         assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("Your new application is ready.");
+        assertThat(contentAsString(html)).contains("Hello, world!");
+    }
+
+    @Test
+    public void callIndex() {
+        Result result = callAction(controllers.routes.ref.Application.index());
+        assertThat(status(result)).isEqualTo(OK);
+        assertThat(contentType(result)).isEqualTo("text/html");
+        assertThat(charset(result)).isEqualTo("utf-8");
+        assertThat(contentAsString(result)).contains("Hello, world!");
     }
   
    
